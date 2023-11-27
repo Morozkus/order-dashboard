@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from "../../model/IProduct";
-import { getTest } from '../../supabase/supabase';
+import { getProducts, getTypes } from '../../supabase/supabase';
+import { ITypeProduct } from '../../model/IType';
+import { getAllProduct } from '../Thunk/productThunk';
 
 interface ProductState {
   productList: IProduct[]
@@ -11,11 +13,6 @@ const initialState: ProductState = {
   productList: [],
   isLoading: false
 }
-
-export const getAllProduct = createAsyncThunk<IProduct[]>(
-  'product/getAll',
-  getTest
-)
 
 export const ProductSlice = createSlice({
   name: 'product_list',
