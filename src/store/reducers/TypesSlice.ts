@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getTypes } from '../../supabase/supabase';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ITypeProduct } from '../../model/IType';
 import { getAllTypes } from '../Thunk/typesThunk';
 

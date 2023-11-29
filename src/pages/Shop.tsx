@@ -30,7 +30,7 @@ const Shop = () => {
       )
 
   return (
-    <Container gap-3>
+    <Container>
       <TypesBoard setType={setType} types={productTypes} />
       <Board type={type} products={productList} />
     </Container>

@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const buttonStyle = { width: 25, height: 25, borderRadius: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }
 
 interface ICounter {
-    callback?: () => void
+    callbackDecriment?: () => void,
+    callbackIncrement?: () => void,
+    count: number
 }
 
-const Counter = ({ callback }: ICounter) => {
-    const [count, setCount] = useState(1)
+const Counter = ({ callbackDecriment, callbackIncrement, count }: ICounter) => {
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 5px' }}>
-            <button onClick={() => setCount(count => count - 1)} style={buttonStyle}>-</button>
+        <div style={{ display: 'flex', gap: '10px', padding: '0 5px' }}>
+            <button onClick={() => callbackDecriment && callbackDecriment()} style={buttonStyle}>-</button>
             <p>{count}</p>
-            <button onClick={() => setCount(count => count + 1)} style={buttonStyle}>+</button>
+            <button onClick={() => callbackIncrement && callbackIncrement()} style={buttonStyle}>+</button>
         </div>
     )
 }

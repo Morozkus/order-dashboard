@@ -12,7 +12,7 @@ export async function getProducts() {
     if (error) throw error
     // const newData = data.map(product => {
     //   console.log(updateSizeImages(100, 1500, product.image))
-    //   return { ...product, image: updateSizeImages(100, 150, product.image) }
+    //   return { ...product, image: 'https://lrwjkqgielnjpoigcqxf.supabase.co/storage/v1/object/public/images/drink/milk-shake.jpg?width=350&height=200' }
     // })
     return data
   } catch (e) {
@@ -31,10 +31,12 @@ export async function getTypes() {
 }
 
 const updateSizeImages = (width: number, height: number, url: string) => {
-  return supabase.storage.from('images').getPublicUrl(url, {
+  const image = supabase.storage.from('images').getPublicUrl(url, {
     transform: {
       width,
       height,
     },
-  }).data.publicUrl
+  })
+
+  return image.data.publicUrl
 }

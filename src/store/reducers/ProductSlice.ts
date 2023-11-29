@@ -1,7 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from "../../model/IProduct";
-import { getProducts, getTypes } from '../../supabase/supabase';
-import { ITypeProduct } from '../../model/IType';
 import { getAllProduct } from '../Thunk/productThunk';
 
 interface ProductState {
