@@ -1,24 +1,25 @@
-import React, { memo, useState, useEffect } from 'react'
+import React, { memo, useState, useEffect, useMemo } from 'react'
 import { Container } from 'react-bootstrap'
 import { IProduct } from '../model/IProduct'
 import BoardCard from './BoardCard'
+import { useAppSelector } from '../hooks/redux'
+import { TSort } from '../model/TSort'
+import { useSortedProducts } from '../hooks/useFilterAndSorted'
 
 interface BoardProps {
     products: IProduct[]
-    type: number
+    type: number,
+    typeSort: string
 }
 
-const Board = memo(({ products, type }: BoardProps) => {
-    const [filterProducts, setFilterProducts] = useState<IProduct[]>([])
+const Board = memo(({ products, type, typeSort }: BoardProps) => {
+    const { order } = useAppSelector(state => state.order)
 
-    useEffect(() => {
-        setFilterProducts(products.filter(product => product.type_id === type))
-    }, [products, type])
-
+    const filterAndSortedProducts = useSortedProducts({products, type, typeSort})
 
     return (
         <Container className='flex-row d-flex flex-wrap justify-content-between'>
-            {filterProducts.map((el: IProduct) => <BoardCard id={el.id} image={el.image} price={el.price} title={el.title} content={el.content} key={el.id} />)}
+            {filterAndSortedProducts.map((el: IProduct) => <BoardCard productCount={order[el.id]?.count} id={el.id} image={el.image} price={el.price} title={el.title} content={el.content} key={el.id} />)}
         </Container>
     )
 })

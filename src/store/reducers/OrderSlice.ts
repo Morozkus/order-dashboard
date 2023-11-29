@@ -6,12 +6,14 @@ interface IOrder {
 }
 
 interface ProductState {
-  order: IOrder[]
+  order: {
+    [key: string]: IOrder
+  }
   isLoading: boolean
 }
 
 const initialState: ProductState = {
-  order: [],
+  order: {},
   isLoading: false
 }
 
@@ -20,26 +22,20 @@ export const OrderSlice = createSlice({
   initialState,
   reducers: {
     pushProductInOrder(state, action: PayloadAction<IOrder>) {
-      state.order.push(action.payload)
+      state.order[String(action.payload.productId)] = action.payload
     },
 
     removeProductFromOrder(state, action: PayloadAction<number>) {
-      state.order = state.order.filter(ord => ord.productId !== action.payload)
+      delete state.order[String(action.payload)]
     },
 
     incrementProductInOrder(state, action: PayloadAction<IOrder>) {
-      const findOrder = state.order.find(ord => ord.productId === action.payload.productId)
-      if (findOrder)
-        findOrder.count = action.payload.count
-    },
-
-    dicrementProductInOrder(state, action: PayloadAction<IOrder>) {
-      const findOrder = state.order.find(ord => ord.productId === action.payload.productId)
+      const findOrder = state.order[String(action.payload.productId)]
       if (findOrder)
         findOrder.count = action.payload.count
     }
   },
 })
 
-export const {pushProductInOrder, dicrementProductInOrder, incrementProductInOrder, removeProductFromOrder} = OrderSlice.actions
+export const {pushProductInOrder, incrementProductInOrder, removeProductFromOrder} = OrderSlice.actions
 export default OrderSlice.reducer

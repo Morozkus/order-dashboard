@@ -10,7 +10,7 @@ interface TypesBoardProps {
 
 const TypesBoard = memo(({ types, setType }: TypesBoardProps) => {
     return (
-        <ListGroup horizontal={'sm'} className="my-2">
+        <ListGroup horizontal={'sm'} className="my-2 align-items-center">
             {types.map(type => <ListGroup.Item variant="primary">
                 <Button
                     variant='primary'

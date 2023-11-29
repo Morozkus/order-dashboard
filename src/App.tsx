@@ -6,10 +6,12 @@ import { Container } from 'react-bootstrap';
 
 function App() {
   return (
-    <Container>
+    <>
       <NavBar />
-      <AppRouter />
-    </Container>
+      <Container>
+        <AppRouter />
+      </Container>
+    </>
   );
 }
 

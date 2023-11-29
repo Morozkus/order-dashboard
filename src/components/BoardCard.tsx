@@ -4,21 +4,21 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Counter from './UI/Counter';
 import { useAppDispatch } from '../hooks/redux'
-import { dicrementProductInOrder, incrementProductInOrder, pushProductInOrder, removeProductFromOrder } from '../store/reducers/OrderSlice';
-
+import { incrementProductInOrder, pushProductInOrder, removeProductFromOrder } from '../store/reducers/OrderSlice';
 
 interface IBoardCardProps {
   id: number,
   title: string,
   content?: string,
   image: string,
-  price: number
+  price: number,
+  productCount: number | undefined
 }
 
-const BoardCard: FC<IBoardCardProps> = ({ id, title, content, image, price }) => {
+const BoardCard: FC<IBoardCardProps> = ({ id, title, content, image, price, productCount }) => {
   const dispatch = useAppDispatch()
-  const [isBuy, setIsBuy] = useState(false)
-  const [count, setCount] = useState(0)
+  const [isBuy, setIsBuy] = useState(productCount ? true : false)
+  const [count, setCount] = useState(productCount || 0)
 
   const clickBuy = useCallback((productId: number, basicCount: number = 1) => {
     setIsBuy(true)
