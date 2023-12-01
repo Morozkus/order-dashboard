@@ -1,6 +1,6 @@
 import Admin from "../pages/Admin";
 import Order from "../pages/Order";
-import ProductMenu from "../pages/ProductMenu";
+import ProductMenu from "../pages/OrderPage";
 import Shop from "../pages/Shop";
 
 

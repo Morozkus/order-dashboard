@@ -17,8 +17,8 @@ const Shop = () => {
   const [typeSort, setTypeSort] = useState<TSort>(TSort.UP)
 
   useMemo(() => {
-    dispatch(getAllTypes())
-    dispatch(getAllProduct())
+    !Object.values(productTypes).length && dispatch(getAllTypes())
+    !Object.values(productList).length && dispatch(getAllProduct())
   }, [])
 
   if (isProductLoading || isTypesLoading)
