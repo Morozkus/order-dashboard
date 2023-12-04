@@ -3,29 +3,29 @@ import { ITypeProduct } from '../../model/IType';
 import { getAllTypes } from '../Thunk/typesThunk';
 
 interface ProductState {
-  productTypes: ITypeProduct[]
-  isLoading: boolean
+ productTypes: ITypeProduct[]
+ isLoading: boolean
 }
 
 const initialState: ProductState = {
-  productTypes: [],
-  isLoading: false
+ productTypes: [],
+ isLoading: false
 }
 
 export const TypesSlice = createSlice({
-  name: 'types_list',
-  initialState,
-  reducers: {},
-  extraReducers(builder) {
-    builder.addCase(getAllTypes.pending, (state) => {
-      state.isLoading = true
-    })
+ name: 'types_list',
+ initialState,
+ reducers: {},
+ extraReducers(builder) {
+  builder.addCase(getAllTypes.pending, (state) => {
+   state.isLoading = true
+  })
 
-    builder.addCase(getAllTypes.fulfilled, (state, action: PayloadAction<ITypeProduct[]>) => {
-      state.isLoading = false
-      state.productTypes = action.payload
-    })
-  },
+  builder.addCase(getAllTypes.fulfilled, (state, action: PayloadAction<ITypeProduct[]>) => {
+   state.isLoading = false
+   state.productTypes = action.payload
+  })
+ },
 })
 
 export default TypesSlice.reducer

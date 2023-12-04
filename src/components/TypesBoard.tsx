@@ -4,23 +4,23 @@ import { Button } from 'react-bootstrap'
 import ListGroup from 'react-bootstrap/ListGroup';
 
 interface TypesBoardProps {
-    types: ITypeProduct[]
-    setType: (type: number) => void
+ types: ITypeProduct[]
+ setType: (type: number) => void
 }
 
 const TypesBoard = memo(({ types, setType }: TypesBoardProps) => {
-    return (
-        <ListGroup horizontal={'sm'} className="my-2 align-items-center">
-            {types.map(type => <ListGroup.Item variant="primary">
-                <Button
-                    variant='primary'
-                    onClick={() => setType(type.id)}
-                >
-                    {type.type}
-                </Button>
-            </ListGroup.Item>)}
-        </ListGroup>
-    )
+ return (
+  <ListGroup horizontal={'sm'} className="my-2 align-items-center">
+   {types.map(type => <ListGroup.Item key={'list' + type.id} variant="primary">
+    <Button
+     variant='primary'
+     onClick={() => setType(type.id)}
+    >
+     {type.type}
+    </Button>
+   </ListGroup.Item>)}
+  </ListGroup>
+ )
 })
 
 export default TypesBoard

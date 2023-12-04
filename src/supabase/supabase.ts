@@ -9,10 +9,10 @@ const supabase = createClient(PROJECT_URL, PROJECT_API_KEY)
 export default supabase
 
 export async function getOrder(id: number) {
-  const { data, error } = await supabase
-    .from('order_list')
-    .select('*')
-    .match({ id })
+ const { data, error } = await supabase
+  .from('order_list')
+  .select('*')
+  .match({ id })
 }
 
 export async function getOrders() {

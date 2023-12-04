@@ -1,8 +1,8 @@
 export interface response {
-    status: number,
-    statusText: string
+ status: number,
+ statusText: string
 }
 
 export interface fetchResponse<T> extends response {
-    data: T[]
+ data: T[]
 }

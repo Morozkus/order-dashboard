@@ -1,4 +1,4 @@
 export interface ITypeProduct {
-    id: number,
-    type: string
+ id: number,
+ type: string
 }

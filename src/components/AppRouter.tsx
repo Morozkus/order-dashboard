@@ -4,16 +4,16 @@ import Order from '../pages/Order';
 import { routes } from '../routes/router';
 
 const AppRouter = () => {
-    return (
-        <Routes>
+ return (
+  <Routes>
 
-            {routes.map((route, index) =>
-                <Route key={index} path={route.path} Component={route.Component} />
-            )}
+   {routes.map((route, index) =>
+    <Route key={route.path} path={route.path} Component={route.Component} />
+   )}
 
-            <Route path='*' Component={Order} />
-        </Routes>
-    )
+   <Route path='*' Component={Order} />
+  </Routes>
+ )
 }
 
 export default AppRouter
