@@ -11,7 +11,7 @@ const Order = () => {
  const navigate = useNavigate()
 
  const dispatch = useAppDispatch()
- const { isLoading, orders } = useAppSelector(state => state.orderBoard)
+ const { orders } = useAppSelector(state => state.orderBoard)
 
  const filterFn = useCallback((status: number) => {
   return (el: IOrder, i: number, array: IOrder[]) => el.status === status

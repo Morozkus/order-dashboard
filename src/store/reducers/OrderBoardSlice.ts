@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getAllOrder, setOrderStatus } from '../Thunk/orderThunk';
-import { IOrder, TStatusOrder } from '../../model/IOrder';
+import { IOrder } from '../../model/IOrder';
 
 interface ProductState {
  orders: IOrder[]
@@ -32,5 +32,5 @@ export const OrderSlice = createSlice({
  },
 })
 
-export const { } = OrderSlice.actions
+// export const { } = OrderSlice.actions
 export default OrderSlice.reducer

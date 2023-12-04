@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { getOneOrder, setOrderStatus } from '../Thunk/orderThunk';
+import { TStatusOrder } from '../../model/IOrder';
 
 interface IOrder {
  productId: number,
@@ -6,36 +8,42 @@ interface IOrder {
 }
 
 interface ProductState {
- order: {
-  [key: string]: IOrder
- }
+ infoOrder: IOrder[]
  isLoading: boolean
+ status: TStatusOrder | null
 }
 
 const initialState: ProductState = {
- order: {},
- isLoading: false
+ infoOrder: [],
+ isLoading: false,
+ status: null
 }
 
 export const OrderSlice = createSlice({
- name: 'order',
+ name: 'orderPage',
  initialState,
- reducers: {
-  pushProductInOrder(state, action: PayloadAction<IOrder>) {
-   state.order[String(action.payload.productId)] = action.payload
-  },
+ reducers: {},
+ extraReducers(builder) {
+  builder.addCase(getOneOrder.pending, (state) => {
+   state.isLoading = true
+  })
 
-  removeProductFromOrder(state, action: PayloadAction<number>) {
-   delete state.order[String(action.payload)]
-  },
+  builder.addCase(getOneOrder.fulfilled, (state, action) => {
+   state.isLoading = false
+   state.infoOrder = action.payload.products
+   state.status = action.payload.status
+  })
 
-  incrementProductInOrder(state, action: PayloadAction<IOrder>) {
-   const findOrder = state.order[String(action.payload.productId)]
-   if (findOrder)
-    findOrder.count = action.payload.count
-  }
+  builder.addCase(setOrderStatus.pending, (state) => {
+   state.isLoading = true
+  })
+
+  builder.addCase(setOrderStatus.fulfilled, (state, action) => {
+   state.isLoading = false
+   state.status = action.payload.status
+  })
  },
 })
 
-export const { pushProductInOrder, incrementProductInOrder, removeProductFromOrder } = OrderSlice.actions
+// export const { } = OrderSlice.actions
 export default OrderSlice.reducer

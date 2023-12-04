@@ -9,7 +9,7 @@ const Table = React.memo(({ title, children }: ITable) => {
  return (
   <div className='d-flex flex-column align-items-center'>
    <h1>{title}</h1>
-   <div className="d-flex">
+   <div className="d-flex gap-3">
     {children}
    </div>
   </div>

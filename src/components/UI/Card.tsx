@@ -8,7 +8,7 @@ interface ICard {
 
 const Card = React.memo(({ info, onClick }: ICard) => {
  return (
-  <Button variant="outline-info" onClick={onClick}>{info}</Button>
+  <Button variant="outline-info" className='px-5 py-3 fs-5' onClick={onClick}>{info}</Button>
  )
 })
 

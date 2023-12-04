@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { IProduct } from '../model/IProduct'
 import { TSort } from '../model/TSort'
 

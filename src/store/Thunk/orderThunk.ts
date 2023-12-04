@@ -48,15 +48,20 @@ export const pushOrder = createAsyncThunk<void, Omit<IOrder, 'id' | 'status'>>(
  }
 )
 
-export const setOrderStatus = createAsyncThunk<void, Omit<IOrder, 'products'>>(
+export const setOrderStatus = createAsyncThunk<IOrder, Omit<IOrder, 'products'>>(
  'order/pushOrder',
  async ({ id, status }) => {
   try {
-   const { error } = await supabase
+   const { data, error } = await supabase
     .from('order_menu')
     .update({ status })
     .eq('id', id)
+    .select()
+    .single()
+    
    if (error) throw error
+
+   return data
   } catch (e) {
    throw (e)
   }
