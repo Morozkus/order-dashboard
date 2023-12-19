@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/order-dashboard/static/css/main.b046793a.css",
+    "main.js": "/order-dashboard/static/js/main.e34c0ffe.js",
+    "index.html": "/order-dashboard/index.html",
+    "main.b046793a.css.map": "/order-dashboard/static/css/main.b046793a.css.map",
+    "main.e34c0ffe.js.map": "/order-dashboard/static/js/main.e34c0ffe.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b046793a.css",
+    "static/js/main.e34c0ffe.js"
+  ]
+}
