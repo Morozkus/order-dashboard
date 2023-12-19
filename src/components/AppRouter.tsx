@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
-import Order from '../pages/Order';
 import { routes } from '../routes/router';
+import Information from '../pages/Information';
 
 const AppRouter = () => {
  return (
@@ -11,7 +11,7 @@ const AppRouter = () => {
     <Route key={route.path} path={route.path} Component={route.Component} />
    )}
 
-   <Route path='*' Component={Order} />
+   <Route path='*' Component={Information} />
   </Routes>
  )
 }

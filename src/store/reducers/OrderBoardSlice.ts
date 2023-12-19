@@ -15,7 +15,11 @@ const initialState: ProductState = {
 export const OrderSlice = createSlice({
  name: 'orderBoard',
  initialState,
- reducers: {},
+ reducers: {
+  pushOrderBoard(state, action: PayloadAction<IOrder>) {
+    state.orders.push(action.payload)
+  }
+ },
  extraReducers(builder) {
   builder.addCase(getAllOrder.fulfilled, (state, action: PayloadAction<IOrder[]>) => {
    state.isLoading = false
@@ -32,5 +36,5 @@ export const OrderSlice = createSlice({
  },
 })
 
-// export const { } = OrderSlice.actions
+export const { pushOrderBoard } = OrderSlice.actions
 export default OrderSlice.reducer

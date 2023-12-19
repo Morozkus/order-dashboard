@@ -1,6 +1,5 @@
 import React from 'react'
 import { ListGroup, Button } from 'react-bootstrap'
-import { InfoOrder } from '../model/IOrder'
 import { useAppDispatch } from '../hooks/redux'
 import { setOrderStatus } from '../store/Thunk/orderThunk'
 
@@ -16,7 +15,7 @@ const OrderPageHeader = React.memo(({ id, infoOrderLength, status, done }: Order
 
  return (
   <ListGroup horizontal={'xxl'} className="my-2">
-   <ListGroup.Item className='d-flex justify-content-center align-items-center flex-grow-1' active>Заказ номер: {id}</ListGroup.Item>
+   <ListGroup.Item className='d-flex justify-content-center align-items-center flex-grow-1' active>Заказ номер: {String(id).length > 2 ? Number(String(id).slice(-2)) : id}</ListGroup.Item>
 
    <ListGroup.Item className='d-flex justify-content-center align-items-center flex-grow-1' variant='success'>
     Статус: {status === 1 ? 'Готовится' : status === 2 ? 'Готово' : 'Отдано'}
@@ -26,7 +25,7 @@ const OrderPageHeader = React.memo(({ id, infoOrderLength, status, done }: Order
     Готово: {status === 1 ? done : infoOrderLength} из {infoOrderLength}
    </ListGroup.Item>
 
-   {done === infoOrderLength && <ListGroup.Item className='flex-grow-1'>
+   {done === infoOrderLength && status === 1 && <ListGroup.Item className='flex-grow-1'>
     <Button variant="success" onClick={() => dispatch(setOrderStatus({ id: Number(id), status: 2 }))}>Готово</Button>
    </ListGroup.Item>}
 

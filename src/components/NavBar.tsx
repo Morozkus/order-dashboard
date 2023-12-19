@@ -7,10 +7,9 @@ const NavBar = () => {
   <>
    <Navbar bg="dark" data-bs-theme="dark">
     <Container>
-     <Navbar.Brand>Order Menu</Navbar.Brand>
-     <Link to='/order'>Заказы</Link>
-     <Link className='ms-3' to='/shop'>Меню</Link>
-     <Link className='ms-auto' to='/admin'>Админка</Link>
+     <Link to={'/'}><Navbar.Brand>Order Menu</Navbar.Brand></Link>
+     <Link to='/board'>Заказы</Link>
+     <Link to='/shop'>Меню</Link>
     </Container>
    </Navbar>
   </>

@@ -40,7 +40,7 @@ export const OrderSlice = createSlice({
 
   builder.addCase(setOrderStatus.fulfilled, (state, action) => {
    state.isLoading = false
-   state.status = action.payload.status
+   state.status = action?.payload?.status
   })
  },
 })

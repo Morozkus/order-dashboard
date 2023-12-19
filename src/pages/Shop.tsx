@@ -8,47 +8,45 @@ import { getAllTypes } from '../store/Thunk/typesThunk'
 import SortedMenu from '../components/SortedMenu'
 import { TSort } from '../model/TSort'
 import { pushOrder } from '../store/Thunk/orderThunk'
-import { useNavigate } from 'react-router-dom'
+import { clearBucket } from '../store/reducers/ProductSlice'
 
-const Shop = () => {
- const navigate = useNavigate()
+const Shop = React.memo(() => {
+  const dispatch = useAppDispatch()
+  const { isLoading: isProductLoading, productList } = useAppSelector(state => state.product)
+  const { isLoading: isTypesLoading, productTypes } = useAppSelector(state => state.types)
+  const { order } = useAppSelector(state => state.order)
 
- const dispatch = useAppDispatch()
- const { isLoading: isProductLoading, productList } = useAppSelector(state => state.product)
- const { isLoading: isTypesLoading, productTypes } = useAppSelector(state => state.types)
- const { order } = useAppSelector(state => state.order)
+  const [type, setType] = useState(1)
+  const [typeSort, setTypeSort] = useState<TSort>(TSort.UP)
 
- const [type, setType] = useState(1)
- const [typeSort, setTypeSort] = useState<TSort>(TSort.UP)
+  useEffect(() => {
+    !Object.values(productTypes).length && dispatch(getAllTypes())
+    !Object.values(productList).length && dispatch(getAllProduct())
+  }, [dispatch, productList, productTypes])
 
- useEffect(() => {
-  !Object.values(productTypes).length && dispatch(getAllTypes())
-  !Object.values(productList).length && dispatch(getAllProduct())
- }, [dispatch, productList, productTypes])
+  if (isProductLoading || isTypesLoading)
+    return (
+      <Spinner animation="border" />
+    )
 
- if (isProductLoading || isTypesLoading)
   return (
-   <Spinner animation="border" />
+    <Container>
+      <Col className='justify-content-start'>
+        <TypesBoard key='typesboard' setType={setType} types={productTypes} />
+        <Col>
+          <SortedMenu key='sortedMenu' setTypeSort={setTypeSort} typeSort={typeSort} />
+          {Object.values(order).length ?
+            <Button className='ms-3' key='order-button' onClick={() => {
+              dispatch(pushOrder({ products: Object.values(order) }))
+              dispatch(clearBucket())
+            }}>
+              Заказать
+            </Button> : false}
+        </Col>
+      </Col>
+      <Board key='shopboard' typeSort={typeSort} type={type} products={productList} />
+    </Container>
   )
-
- return (
-  <Container>
-   <Col className='justify-content-start'>
-    <TypesBoard key='typesboard' setType={setType} types={productTypes} />
-    <Col>
-     <SortedMenu key='sortedMenu' setTypeSort={setTypeSort} typeSort={typeSort} />
-     {Object.values(order).length ?
-      <Button key='order-button' onClick={() => {
-       dispatch(pushOrder({ products: Object.values(order) }))
-       navigate('/order')
-      }}>
-       Заказать
-      </Button> : false}
-    </Col>
-   </Col>
-   <Board key='shopboard' typeSort={typeSort} type={type} products={productList} />
-  </Container>
- )
-}
+})
 
 export default Shop

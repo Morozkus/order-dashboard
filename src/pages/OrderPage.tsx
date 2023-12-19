@@ -10,37 +10,39 @@ import OrderPageHeader from '../components/OrderPageHeader';
 import OrderPageTable from '../components/OrderPageTable';
 
 const ProductMenu = React.memo(() => {
- const { id } = useParams()
- const dispatch = useAppDispatch()
- const { infoOrder, isLoading, status } = useAppSelector(state => state.orderPage)
- const { productList, isLoading: productLoaging } = useAppSelector(state => state.product)
+  const { id } = useParams()
+  const dispatch = useAppDispatch()
+  const { infoOrder, isLoading, status } = useAppSelector(state => state.orderPage)
+  const { productList, isLoading: productLoaging } = useAppSelector(state => state.product)
 
- const [productsOfDone, setProductsOfDone] = useState<number>(0)
+  const [productsOfDone, setProductsOfDone] = useState<number>(0)
 
- const objectProducts = useMemo(() => {
-  return productList.reduce((acc: { [key: number]: IProduct }, cur) => {
-   acc[cur.id] = cur
-   return acc
-  }, {})
- }, [productList])
+  const objectProducts = useMemo(() => {
+    return productList.reduce((acc: { [key: number]: IProduct }, cur) => {
+      acc[cur.id] = cur
+      return acc
+    }, {})
+  }, [productList])
 
- useEffect(() => {
-  id && dispatch(getOneOrder(Number(id)))
-  dispatch(getAllProduct())
- }, [dispatch, id])
+  useEffect(() => {
+    if (id) {
+      dispatch(getOneOrder(Number(id)))
+      dispatch(getAllProduct())
+    }
+  }, [dispatch, id])
 
- if (isLoading || productLoaging) {
+  if (isLoading || productLoaging) {
+    return (
+      <Spinner />
+    )
+  }
+
   return (
-   <Spinner />
+    <ListGroup>
+      <OrderPageHeader done={productsOfDone} id={id ?? ''} infoOrderLength={infoOrder.length} status={status || 1} />
+      <OrderPageTable status={status} infoOrder={infoOrder} objectProducts={objectProducts} increment={() => setProductsOfDone(productsOfDone + 1)} />
+    </ListGroup>
   )
- }
-
- return (
-  <ListGroup>
-   <OrderPageHeader done={productsOfDone} id={id ?? ''} infoOrderLength={infoOrder.length} status={status || 1} />
-   <OrderPageTable infoOrder={infoOrder} objectProducts={objectProducts} increment={() => setProductsOfDone(productsOfDone + 1)} />
-  </ListGroup>
- )
 })
 
 export default ProductMenu
